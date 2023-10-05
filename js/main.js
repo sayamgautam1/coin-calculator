@@ -44,7 +44,7 @@ function calculateChange() {
   for (var key in totalCoins) {
     var div = document.getElementById(key + "-output");
     if (div) {
-      div.innerHTML = key + ": " + totalCoins[key];
+      div.innerHTML = totalCoins[key];
     }
   }
 }
