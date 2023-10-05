@@ -44,7 +44,7 @@ describe("Coin Change Calculator User Interaction", () => {
     expect(mockCalculateChange).toHaveBeenCalledTimes(1);
   });
 
-  it("calculates the correct number of change for 10.50", () => {
+  it("calculates the correct number of change for $10.50", () => {
     document.getElementById("total-amount").value = "10.52";
     // Trigger a click event on the button
     const event = new dom.window.Event("click");
@@ -57,6 +57,42 @@ describe("Coin Change Calculator User Interaction", () => {
     expect(document.getElementById("10c-output").textContent).toBe("10c: 0");
     expect(document.getElementById("5c-output").textContent).toBe("5c: 0");
     expect(document.getElementById("2c-output").textContent).toBe("2c: 1");
+    expect(document.getElementById("1c-output").textContent).toBe("1c: 0");
+  });
+
+  // test for null dollar value
+
+  it("calculates the correct number of change for $0.23, where dollar value is null", () => {
+    document.getElementById("total-amount").value = "0.23";
+    // Trigger a click event on the button
+    const event = new dom.window.Event("click");
+    calculateChange.dispatchEvent(event);
+
+    expect(document.getElementById("2s-output").textContent).toBe("2s: 0");
+    expect(document.getElementById("1s-output").textContent).toBe("1s: 0");
+    expect(document.getElementById("50c-output").textContent).toBe("50c: 0");
+    expect(document.getElementById("20c-output").textContent).toBe("20c: 1");
+    expect(document.getElementById("10c-output").textContent).toBe("10c: 0");
+    expect(document.getElementById("5c-output").textContent).toBe("5c: 0");
+    expect(document.getElementById("2c-output").textContent).toBe("2c: 1");
+    expect(document.getElementById("1c-output").textContent).toBe("1c: 1");
+  });
+
+  // test for null cents value
+
+  it("calculates the correct number of change for $3, where cents value is null", () => {
+    document.getElementById("total-amount").value = "3";
+    // Trigger a click event on the button
+    const event = new dom.window.Event("click");
+    calculateChange.dispatchEvent(event);
+
+    expect(document.getElementById("2s-output").textContent).toBe("2s: 1");
+    expect(document.getElementById("1s-output").textContent).toBe("1s: 1");
+    expect(document.getElementById("50c-output").textContent).toBe("50c: 0");
+    expect(document.getElementById("20c-output").textContent).toBe("20c: 0");
+    expect(document.getElementById("10c-output").textContent).toBe("10c: 0");
+    expect(document.getElementById("5c-output").textContent).toBe("5c: 0");
+    expect(document.getElementById("2c-output").textContent).toBe("2c: 0");
     expect(document.getElementById("1c-output").textContent).toBe("1c: 0");
   });
 });
