@@ -21,7 +21,6 @@ describe("Coin Change Calculator User Interaction", () => {
   beforeEach(() => {
     inputAmount = document.getElementById("total-amount");
     calculateChange = document.getElementById("calculate-change");
-    coinDivs = Array.from(document.getElementsByClassName("coin"));
   });
 
   it("should have value for user input", () => {
@@ -45,27 +44,19 @@ describe("Coin Change Calculator User Interaction", () => {
     expect(mockCalculateChange).toHaveBeenCalledTimes(1);
   });
 
-  it("should calculate change correctly for $1", () => {
-    // Set input values to $3.75
-    inputAmount = "1";
-
+  it("calculates the correct number of change for 10.50", () => {
+    document.getElementById("total-amount").value = "10.52";
     // Trigger a click event on the button
     const event = new dom.window.Event("click");
     calculateChange.dispatchEvent(event);
 
-    // Define the expected change as an array of strings for each coin denomination
-    const expectedChange = [
-      "2s: 0",
-      "1s: 1",
-      "50c: 0",
-      "20c: 0",
-      "10c: 0",
-      "5c: 0",
-      "2c: 0",
-      "1c: 0",
-    ];
-
-    // Check if the displayed change matches the expected change
-    expect(coinDivs.map((div) => div.innerHTML)).toEqual(expectedChange);
+    expect(document.getElementById("2s-output").textContent).toBe("2s: 5");
+    expect(document.getElementById("1s-output").textContent).toBe("1s: 0");
+    expect(document.getElementById("50c-output").textContent).toBe("50c: 1");
+    expect(document.getElementById("20c-output").textContent).toBe("20c: 0");
+    expect(document.getElementById("10c-output").textContent).toBe("10c: 0");
+    expect(document.getElementById("5c-output").textContent).toBe("5c: 0");
+    expect(document.getElementById("2c-output").textContent).toBe("2c: 1");
+    expect(document.getElementById("1c-output").textContent).toBe("1c: 0");
   });
 });
